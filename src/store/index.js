@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import * as actions from './actions'
 import * as getters from './getters'
 import user from './modules/user'
+import notice from './modules/notice'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
   getters,
   actions,
   modules: {
-    user
+    user,
+    notice
   },
   strict: debug
 })

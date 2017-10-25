@@ -10,7 +10,10 @@ export default {
         userId
       }
     })
-    .then(res => cb(res))
+    .then(res => {
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data.jwt
+      cb(res)
+    })
     .catch(err => errCb(err))
   }
 }

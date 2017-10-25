@@ -1,6 +1,7 @@
 import user from '../../api/user'
 import * as types from '../mutation-types'
 
+
 const state = {
   userId: '',
   jwt:'',
@@ -14,12 +15,16 @@ const getters = {
 }
 
 const actions = {
-  login ({ commit, state }, { userId }) {
+  login ({ commit, state, dispatch}, { userId }) {
     commit(types.INIT_USERID, { userId })
     user.login(
       state.userId,
-      res => commit(types.LOGIN, res.data),
-      err => commit(types.LOGIN_FAILURE, err.response.data)
+      res => {
+        dispatch('notice/list').then(()=>{
+          commit(types.LOGIN, res.data)
+        })
+      },
+      err => { console.log(err);commit(types.LOGIN_FAILURE, err.response.data)}
     )
   }
 }
