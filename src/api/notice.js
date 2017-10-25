@@ -1,4 +1,4 @@
-import {notice} from './http_url'
+import {notice, notice_detail} from './http_url'
 import axios from 'axios'
 
 export default {
@@ -15,5 +15,10 @@ export default {
       })
       .then(res => cb(res))
       .catch(err => errCb(err))
+  },
+  detail(noticeId, cb, errCb) {
+    axios.get(notice_detail(noticeId))
+    .then(res => cb(res))
+    .then(err => errCb(err))
   }
 }

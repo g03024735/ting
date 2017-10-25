@@ -4,7 +4,7 @@
         <v-header :title="title" ></v-header>
         <swiper :options="swiperOption" :not-next-tick="notNextTick" ref="mySwiper">
           <swiper-slide v-for="(item, index) in notices" :key="item._id" class="swiper-box">
-            <router-link :to="'/voice/' + item._id">
+            <router-link :to="'/notice/' + item._id">
               <img :src="item.cover" :alt="item.title">
             </router-link>
           </swiper-slide>
