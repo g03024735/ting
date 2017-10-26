@@ -43,13 +43,11 @@ export default {
       })
     },
     notice () {
-      // console.log(this.details.find(notice => {
-      //   console.log(notice._id, this.noticeId)
-      //   return notice._id === this.noticeId
-      // }))
-      // [1,2,3,4].find( i => i==2 )
-      console.log(typeof this.details,Array.isArray(this.details), this.details.length)
-      return this.details[0]
+      //bug 用Array.find方法 webpack打包的时候,UC QQ 等几个浏览器会报错,先用for循环来解决一下
+      for(let i = 0, notice; notice = this.details[i++];){
+        if(notice._id === this.noticeId)
+          return notice
+      }
     },
     paragraphs () {
       return this.notice && this.notice.content.split("\r\n")
@@ -117,7 +115,6 @@ export default {
       text-indent: .68rem;
       line-height: .43rem;
       white-space: pre-wrap;
-      font-family: "Microsoft YaHei", "WenQuanYi Micro Hei", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", sans-serif;
     }
   }
 }
