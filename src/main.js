@@ -4,8 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import router from './router'
+import {formatDate} from './utils/filter/date'
+
+require('./assets/iconfont')
 
 Vue.config.productionTip = false
+Vue.filter('formatDate', formatDate)
 
 /* eslint-disable no-new */
 new Vue({
