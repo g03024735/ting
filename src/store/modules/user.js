@@ -20,7 +20,10 @@ const actions = {
     user.login(
       state.userId,
       res => {
-        dispatch('notice/list').then(()=>{
+        Promise.all([
+          dispatch('notice/list'),
+          dispatch('course/hot'),
+        ]).then(()=>{
           commit(types.LOGIN, res.data)
         })
       },

@@ -44,6 +44,7 @@ export default {
     },
     notice () {
       //bug 用Array.find方法 webpack打包的时候,UC QQ 等几个浏览器会报错,先用for循环来解决一下
+      // return this.details.find( notice => notice._id === this.noticeId)
       for(let i = 0, notice; notice = this.details[i++];){
         if(notice._id === this.noticeId)
           return notice

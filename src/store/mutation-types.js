@@ -6,3 +6,8 @@ export const NOTICE_LIST = "NOTICE_LIST"
 export const NOTICE_DEFAULT = "NOTICE_DEFAULT"
 export const NOTICE_DETAIL = "NOTICE_DETAIL"
 export const NOTICE_DETAIL_FAILURE = "NOTICE_DETAIL_FAILURE"
+
+export const COURSE_HOT = "COUTSE_HOT"
+export const COURSE_ALL = "COURSE_ALL"
+export const COURSE_MY = "COURSE_MY"
+export const COURSE_FAILURE = "COURSE_FAILURE"

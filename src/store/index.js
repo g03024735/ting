@@ -4,6 +4,7 @@ import * as actions from './actions'
 import * as getters from './getters'
 import user from './modules/user'
 import notice from './modules/notice'
+import course from './modules/course'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
   actions,
   modules: {
     user,
-    notice
+    notice,
+    course
   },
   strict: debug
 })

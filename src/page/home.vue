@@ -11,6 +11,7 @@
           <div class="swiper-pagination"  slot="pagination"></div>
           <div class="swiper-scrollbar" slot="scrollbar"></div>
         </swiper>
+        <v-hot :courses="hots"></v-hot>
     </template>
     <v-cover v-else :msg="errorMsg"></v-cover>
   </div>
@@ -21,6 +22,7 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import header from '@/components/header'
 import cover from '@/components/cover'
+import hot from '@/components/hot'
 
 require('swiper/dist/css/swiper.css')
 
@@ -47,6 +49,7 @@ export default {
   components: {
     'v-header': header,
     'v-cover': cover,
+    'v-hot': hot,
     swiper,
     swiperSlide
   },
@@ -54,9 +57,12 @@ export default {
     ...mapState('notice', {
       notices: state => state.notices
     }),
+    ...mapState('course', {
+      hots: state => state.hot
+    }),
     ...mapGetters(["isLogin", "errorMsg"]),
     ...mapGetters({
-      noticeCount: 'notice/count'
+      noticeCount: 'notice/count',
     })
   },
   methods: {
