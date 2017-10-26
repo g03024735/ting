@@ -8,8 +8,6 @@ const state = {
 }
 
 const getters = {
-  hotCount: state => state.hot.length,
-  hot: state => state.hot
 }
 
 const actions = {
@@ -23,12 +21,28 @@ const actions = {
       res => commit(types.COURSE_HOT, res.data),
       err => commit(types.COURSE_FAILURE)
     )
+  },
+  all ({ commit, state }) {
+    course.list(
+      {
+        'type': 'all',
+        'sort': 'initial{String}',
+        'order': '1{Number}',
+        'putIn': 'true{Boolean}',
+        'select': '_id,author,cover,initial,name'
+      },
+      res => commit(types.COURSE_ALL, res.data),
+      res => commit(types.COURSE_FAILURE)
+    )
   }
 }
 
 const mutations = {
   [types.COURSE_HOT] (state, list) {
     state.hot = list
+  },
+  [types.COURSE_ALL] (state, list) {
+    state.all = list
   },
   [types.COURSE_FAILURE] (state) {
     //先不做操作
