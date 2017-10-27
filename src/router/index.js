@@ -4,6 +4,7 @@ import Home from '@/page/home'
 import Notice from '@/page/notice'
 import Courses from '@/page/courses'
 import Course from '@/page/course'
+import Comment from '@/page/comment'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       name: 'course',
       component: Course,
       props: true
+    },
+    {
+      path: '/comment',
+      name: 'comment',
+      component: Comment
     },
     {
       path: '/:userId',
