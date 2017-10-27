@@ -5,6 +5,8 @@ import * as types from '../mutation-types'
 const state = {
   hot:[],
   all: [],
+  mine: [],
+  mineAll: [],
 }
 
 const getters = {
@@ -34,6 +36,32 @@ const actions = {
       res => commit(types.COURSE_ALL, res.data),
       res => commit(types.COURSE_FAILURE)
     )
+  },
+  my ({ commit, state }) {
+    course.list(
+      {
+        'type': 'mine',
+        'sort': 'initial{String}',
+        'order': '1{Number}',
+        'putIn': 'true{Boolean}',
+        'select': '_id,author,cover,initial,name'
+      },
+      res => commit(types.COURSE_MY, res.data),
+      res => commit(types.COURSE_FAILURE)
+    )
+  },
+  myAll ({ commit, state }) {
+    course.list(
+      {
+        'type': 'mine',
+        'sort': 'initial{String}',
+        'order': '1{Number}',
+        'putIn': 'true{Boolean}',
+        'select': '_id,author,cover,initial,name'
+      },
+      res => commit(types.COURSE_MY_ALL, res.data),
+      res => commit(types.COURSE_FAILURE)
+    )
   }
 }
 
@@ -43,6 +71,12 @@ const mutations = {
   },
   [types.COURSE_ALL] (state, list) {
     state.all = list
+  },
+  [types.COURSE_MY] (state, list) {
+    state.mine = list
+  },
+  [types.COURSE_MY_ALL] (state, list) {
+    state.mineAll = list
   },
   [types.COURSE_FAILURE] (state) {
     //先不做操作

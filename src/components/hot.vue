@@ -2,7 +2,7 @@
   <div class="hot-list">
     <div class="hd">
       <h2>{{ head }}</h2>
-      <router-link class="more" :to="{ name: 'courses' }">{{ more }}</router-link>
+      <router-link class="more" to="/courses/all">{{ more }}</router-link>
     </div>
     <div class="course-list">
       <div class="card" v-for="(course, index) in courses" :key="course._id">

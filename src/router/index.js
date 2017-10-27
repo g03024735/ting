@@ -17,9 +17,10 @@ export default new Router({
       props: true
     },
     {
-      path: '/courses',
+      path: '/courses/:category',
       name: 'courses',
-      component: Courses
+      component: Courses,
+      props: true
     },
     {
       path: '/course/:courseId',

@@ -1,0 +1,17 @@
+================================================
+
+IPsec VPN server is now ready for use!
+
+Connect to your new VPN with these details:
+
+Server IP: 47.254.22.227
+IPsec PSK: bDh6NvtDHCbNPiFg
+Username: vpnuser
+Password: BaXYigxdwE34cNq6
+
+Write these down. You'll need them to connect!
+
+Important notes:   https://git.io/vpnnotes
+Setup VPN clients: https://git.io/vpnclients
+
+================================================
