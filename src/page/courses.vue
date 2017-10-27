@@ -39,20 +39,25 @@ export default {
   name: 'courses',
   data: function () {
     return {
-      msg: 'sss',
     }
   },
   props: ["category"],
   computed: {
+    courses() {
+      if(this.category === 'all')
+        return this.allCourses
+      else if(this.category === 'mine')
+        return this.myAllCourse
+    },
     ...mapState('course', {
-      courses: state => state.all,
-      myCourses: state => state.my
+      allCourses: state => state.all,
+      myAllCourse: state => state.mineAll
     }),
     courseCount() {
-      return this.courses.length
+      return this.allCourses.length
     },
-    myCourseCount() {
-      return this.myCourses.length
+    myAllCourseCount() {
+      return this.myAllCourse.length
     },
     title () {
       let _category = {
@@ -62,7 +67,7 @@ export default {
       return _category[this.category]
     },
     loading () {
-      return (this.category === 'all' && this.courseCount === 0) || (this.category === 'mine' && this.myCourseCount === 0)
+      return (this.category === 'all' && this.courseCount === 0) || (this.category === 'mine' && this.myAllCourseCount === 0)
     }
   },
   methods: {
@@ -84,7 +89,8 @@ export default {
     }
   },
   created () {
-    if((this.category === 'all' && this.courses.length > 0) || (this.category === 'mine' && this.myCourses.length > 0))
+    console.log('create', this.category ,(this.category === 'all' && this.allCourses.length > 0) || (this.category === 'mine' && this.myAllCourse.length > 0))
+    if((this.category === 'all' && this.allCourses.length > 0) || (this.category === 'mine' && this.myAllCourse.length > 0))
       return
     if(this.category === 'all')
       this.getAllCourse()
