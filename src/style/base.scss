@@ -1,0 +1,26 @@
+.head {
+  display: flex;
+  border-bottom: 2px solid #dcdcdc;
+  background-color: #ececec;
+  .back {
+    height: 1.1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .icon {
+    margin-left: .1rem;
+    width: .6rem;
+    height: .6rem;
+    fill: currentColor;
+    vertical-align: center;
+    overflow: hidden;
+  }
+  h1 {
+    display: flex;
+    align-items: center;
+    font-size: .4rem;
+    vertical-align: middle;
+    margin-left: .3rem;
+  }
+}

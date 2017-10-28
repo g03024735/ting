@@ -10,6 +10,7 @@ const state = {
 }
 
 const getters = {
+  userId: state => state.userId,
   isLogin: state => state.isLogged,
   errorMsg: state => state.msg
 }

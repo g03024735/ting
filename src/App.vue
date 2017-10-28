@@ -19,6 +19,7 @@ export default {
 
 <style lang="scss">
 @import "./style/common.scss";
+@import "./style/base.scss";
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .1s

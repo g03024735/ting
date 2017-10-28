@@ -2,10 +2,13 @@
   <div class="">
     <v-cover v-if="loading"></v-cover>
     <template v-else>
-      <div class="back" @click="back">
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-fanhui"></use>
-        </svg>
+      <div class="head">
+        <div class="back" @click="back">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fanhui"></use>
+          </svg>
+        </div>
+        <h1></h1>
       </div>
       <div class="content">
         <div class="title">
@@ -74,20 +77,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.back {
-  height: 1.1rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.icon {
-  margin-left: .1rem;
-  width: .6rem;
-  height: .6rem;
-  fill: currentColor;
-  vertical-align: center;
-  overflow: hidden;
-}
 .content {
   padding: .15rem;
   display: flex;

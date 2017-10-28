@@ -5,6 +5,7 @@ import * as getters from './getters'
 import user from './modules/user'
 import notice from './modules/notice'
 import course from './modules/course'
+import comment from './modules/comment'
 
 Vue.use(Vuex)
 
@@ -16,7 +17,8 @@ export default new Vuex.Store({
   modules: {
     user,
     notice,
-    course
+    course,
+    comment
   },
   strict: debug
 })

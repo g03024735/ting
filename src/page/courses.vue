@@ -89,7 +89,6 @@ export default {
     }
   },
   created () {
-    console.log('create', this.category ,(this.category === 'all' && this.allCourses.length > 0) || (this.category === 'mine' && this.myAllCourse.length > 0))
     if((this.category === 'all' && this.allCourses.length > 0) || (this.category === 'mine' && this.myAllCourse.length > 0))
       return
     if(this.category === 'all')
@@ -104,32 +103,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.head {
-  display: flex;
-  border-bottom: 2px solid #dcdcdc;
-  background-color: #ececec;
-  .back {
-    height: 1.1rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  .icon {
-    margin-left: .1rem;
-    width: .6rem;
-    height: .6rem;
-    fill: currentColor;
-    vertical-align: center;
-    overflow: hidden;
-  }
-  h1 {
-    display: flex;
-    align-items: center;
-    font-size: .4rem;
-    vertical-align: middle;
-    margin-left: .3rem;
-  }
-}
 .category-container {
   padding: .3rem .15rem 0;
   .category-head {
@@ -155,6 +128,7 @@ export default {
         flex-direction: column;
         justify-content: flex-end;
         border: 1px solid #dcdcdc;
+        border-left: 2px solid #dcdcdc;
         background: {
           repeat: no-repeat;
           position: center;
@@ -166,6 +140,7 @@ export default {
           flex-direction: column;
           justify-content: space-around;
           background-color: rgba(212, 212, 212, 0.68);
+          margin-bottom: .3rem;
           .card-title {
             font-size: .3rem;
             padding-left: .08rem;
