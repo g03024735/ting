@@ -5,6 +5,7 @@ import Notice from '@/page/notice'
 import Courses from '@/page/courses'
 import Course from '@/page/course'
 import Comment from '@/page/comment'
+import CourseDetail from '@/page/course_detail'
 
 Vue.use(Router)
 
@@ -21,6 +22,12 @@ export default new Router({
       path: '/courses/:category',
       name: 'courses',
       component: Courses,
+      props: true
+    },
+    {
+      path: '/course/:courseId/detail',
+      name: 'coursedetail',
+      component: CourseDetail,
       props: true
     },
     {

@@ -1,12 +1,13 @@
 import course from '../../api/course'
 import * as types from '../mutation-types'
-
+import Vue from 'vue'
 
 const state = {
   hot:[],
   all: [],
   mine: [],
   mineAll: [],
+  detail: {}
 }
 
 const getters = {
@@ -62,6 +63,13 @@ const actions = {
       res => commit(types.COURSE_MY_ALL, res.data),
       res => commit(types.COURSE_FAILURE)
     )
+  },
+  detail ({ commit, state}, courseId) {
+    course.detail(
+      courseId,
+      res => commit(types.COURSE_DETAIL, res.data),
+      res => commit(types.COURSE_FAILURE)
+    )
   }
 }
 
@@ -71,6 +79,9 @@ const mutations = {
   },
   [types.COURSE_ALL] (state, list) {
     state.all = list
+  },
+  [types.COURSE_DETAIL] (state, course) {
+    Vue.set(state.detail, course._id, course)
   },
   [types.COURSE_MY] (state, list) {
     state.mine = list

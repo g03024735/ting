@@ -12,6 +12,7 @@ export const COURSE_ALL = "COURSE_ALL"
 export const COURSE_MY = "COURSE_MY"
 export const COURSE_MY_ALL = "COURSE_MY_ALL"
 export const COURSE_FAILURE = "COURSE_FAILURE"
+export const COURSE_DETAIL = "COURSE_DETAIL"
 
 export const COMMENT_DEFAULT = "COMMENT_DEFAULT"
 export const COMMENT_PUBLISH = "COMMENT_PUBLISH"
