@@ -5,7 +5,7 @@
       <div class="head">
         <div class="back" @click="back">
           <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-fanhui"></use>
+            <use xlink:href="#icon-back"></use>
           </svg>
         </div>
         <h1></h1>
@@ -98,7 +98,7 @@ export default {
     text-align: center;
   }
   .body {
-    padding-top: .5rem;
+    padding: .5rem 0 2rem;
     p {
       font-size: .34rem;
       padding: .15rem;

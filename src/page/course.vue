@@ -5,7 +5,7 @@
       <div class="head">
         <div class="back" @click="back">
           <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-fanhui"></use>
+            <use xlink:href="#icon-back"></use>
           </svg>
         </div>
         <div class="head-content">

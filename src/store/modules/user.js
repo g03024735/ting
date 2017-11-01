@@ -24,6 +24,7 @@ const actions = {
         Promise.all([
           dispatch('notice/list'),
           dispatch('course/hot'),
+          dispatch('course/myAll')
         ]).then(()=>{
           commit(types.LOGIN, res.data)
         })

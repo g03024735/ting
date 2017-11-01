@@ -1,18 +1,25 @@
 <template>
 <div id="app">
   <transition name="fade" mode="out-in">
-    <router-view/>
+    <div>
+      <router-view/>
+      <v-player></v-player>
+    </div>
   </transition>
 </div>
 </template>
 
 <script>
+import player from '@/components/player'
 
 export default {
   name: 'app',
   data: function() {
     return {
     }
+  },
+  components: {
+    'v-player': player
   }
 }
 </script>

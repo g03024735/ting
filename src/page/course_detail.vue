@@ -2,7 +2,7 @@
   <div class="">
     <div class="course-detail" :style="{ backgroundImage: 'url('+ course.cover +')'}">
       <svg class="icon" @click="back" aria-hidden="true">
-        <use xlink:href="#icon-fanhui"></use>
+        <use xlink:href="#icon-back"></use>
       </svg>
       <div class="course-name">
         {{ course.name }}
