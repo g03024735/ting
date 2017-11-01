@@ -3,7 +3,6 @@
     <div class="placeholder" :style="{ height: show ? (simplify ? '1.5rem' : '5rem') : 0  }">
     </div>
     <div v-if="show" class="player" @touchstart.stop.prevent="empty" @touchmove.stop.prevent="empty" @touchend.stop.prevent="empty">
-      <audio ref="audio" preload="auto" style="display:none;" :src="currentVoice.voice.fileKey"></audio>
       <div v-if="simplify" class="player-simplify" v-on:touchstart.stop.prevent="switchCtlShow" >
         <div class="progress">
           <div class="progress-fulfil" :style="{'flex-grow': currentTime}"></div>
@@ -14,7 +13,7 @@
           </div>
           <div class="voice-info">
             <span class="voice-info-name">第{{ currentVoice.voice.stage }}期:{{ currentVoice.voice.title }}</span>
-            <span class="voice-info-author">{{ currentVoice.course.author }} || {{ log }}</span>
+            <span class="voice-info-author">{{ currentVoice.course.author }}</span>
           </div>
           <div class="voice-control-group">
             <svg v-if="paused" class="icon play-btn" @touchstart.stop.prevent="play">
@@ -81,6 +80,7 @@
         </div>
       </div>
     </div>
+    <audio ref="audio" preload="auto" style="display:none;" :src="currentVoice.voice.fileKey"></audio>
   </div>
 </template>
 
@@ -97,11 +97,11 @@ export default {
       playing: true,
       paused: false,
       currentTime: 0,
+      autoNext: true,
       duration: 0,
       audio: undefined,
       barCtl: undefined,
-      dragCtl: undefined,
-      log: 'ss'
+      dragCtl: undefined
     }
   },
   computed: {
@@ -121,6 +121,8 @@ export default {
     },
     currentVoice() {
       for(let i =0, course; course = this.courses[i++];) {
+        if (this.voiceList.length === 0)
+          continue
         if(course._id == this.voiceList[0].course){
           return {
             voice: this.voiceList[0],
@@ -173,14 +175,16 @@ export default {
       next: types.PLAYER_VOICE_NEXT //下一首
     }),
     _handleLoaded() {
-      this.log = this.audio.duration + "--" + this.audio.currentTime
-      this.audio.play()
-      this.log += '--preload:' + this.audio.preload
       this.loaded = true
-      this.duration = parseInt(this.audio.duration)
+    },
+    _handleMetaLoaded() {
+    },
+    _handleCanPlay() {
+      this.audio.play()
     },
     _handlePlayingUI() {
       this.currentTime = parseInt(this.audio.currentTime)
+      this.duration = parseInt(this.audio.duration)
     },
     _handlePlayPause(e) {
       if(e.type === 'pause' && this.paused === false && this.playing === false){
@@ -216,11 +220,19 @@ export default {
       this.dragCtl = this.$refs.dragCtl
       this.playercent = (e.targetTouches[0].clientX - this.barCtl.getBoundingClientRect().left) / this.barCtl.getBoundingClientRect().width
     },
+    _handlePlayEnd() {
+      if(this.autoNext){
+        this.next()
+      }
+    },
     init() {
       this.audio.addEventListener('loadeddata', this._handleLoaded)
+      this.audio.addEventListener('loadedmetadata', this._handleMetaLoaded)
+      this.audio.addEventListener('canplay', this._handleCanPlay)
       this.audio.addEventListener('timeupdate', this._handlePlayingUI)
       this.audio.addEventListener('pause', this._handlePlayPause)
       this.audio.addEventListener('play', this._handlePlayPause)
+      this.audio.addEventListener('ended', this._handlePlayEnd)
     }
   },
   mounted: function () {
@@ -228,13 +240,18 @@ export default {
     this.init()
   },
   beforeDestroy: function () {
-    this.audio.removeEventListener('timeupdate', this._handlePlayingUI)
     this.audio.removeEventListener('loadeddata', this._handleLoaded)
+    this.audio.removeEventListener('loadedmetadata', this._handleMetaLoaded)
+    this.audio.removeEventListener('canplay', this._handleCanPlay)
+    this.audio.removeEventListener('timeupdate', this._handlePlayingUI)
     this.audio.removeEventListener('pause', this._handlePlayPause)
     this.audio.removeEventListener('play', this._handlePlayPause)
+    this.audio.removeEventListener('ended', this._handlePlayEnd)
   },
   filters: {
     HHMMSS(value) {
+      if(!value)
+        return '00:00'
       let hhmmss = new Date(value * 1000).toISOString().substr(11, 8)
       return (hhmmss.indexOf('00:') === 0) ? hhmmss.substr(3) : hhmmss
     }
@@ -254,7 +271,6 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    border-top: 1px solid #a2a2a2;
     .player-simplify {
       height: 1.5rem;
       display: flex;
