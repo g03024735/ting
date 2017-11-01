@@ -175,11 +175,13 @@ export default {
       next: types.PLAYER_VOICE_NEXT //下一首
     }),
     _handleLoaded() {
+      console.log(`[loaded] duration:${this.audio.duration}`)
       this.loaded = true
     },
     _handleMetaLoaded() {
     },
     _handleCanPlay() {
+      console.log(`[canplay] buffered: ${ this.audio.buffered }`, this.audio.buffered)
       this.audio.play()
     },
     _handlePlayingUI() {
