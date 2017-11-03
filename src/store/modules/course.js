@@ -5,8 +5,8 @@ import Vue from 'vue'
 const state = {
   hot:[],
   all: [],
+  myPartial: [],
   mine: [],
-  mineAll: [],
   detail: {}
 }
 
@@ -19,7 +19,7 @@ const actions = {
       {
         'type': 'hot',
         'limit': '8{Number}',
-        'select': '_id,author,cover,name'
+        'select': '_id,author,cover,title,subtitle'
       },
       res => commit(types.COURSE_HOT, res.data),
       err => commit(types.COURSE_FAILURE)
@@ -32,35 +32,35 @@ const actions = {
         'sort': 'initial{String}',
         'order': '1{Number}',
         'putIn': 'true{Boolean}',
-        'select': '_id,author,cover,initial,name'
+        'select': '_id,author,cover,initial,title,subtitle'
       },
       res => commit(types.COURSE_ALL, res.data),
       res => commit(types.COURSE_FAILURE)
     )
   },
-  my ({ commit, state }) {
+  mine ({ commit, state }) {
     course.list(
       {
         'type': 'mine',
         'sort': 'initial{String}',
         'order': '1{Number}',
         'putIn': 'true{Boolean}',
-        'select': '_id,author,cover,initial,name'
+        'select': '_id,author,cover,initial,title,subtitle'
       },
-      res => commit(types.COURSE_MY, res.data),
+      res => commit(types.COURSE_MINE, res.data),
       res => commit(types.COURSE_FAILURE)
     )
   },
-  myAll ({ commit, state }) {
+  myPartial ({ commit, state }) {
     course.list(
       {
-        'type': 'mine',
+        'type': 'myPartial',
         'sort': 'initial{String}',
         'order': '1{Number}',
         'putIn': 'true{Boolean}',
-        'select': '_id,author,cover,initial,name'
+        'select': '_id,author,cover,initial,title,subtitle'
       },
-      res => commit(types.COURSE_MY_ALL, res.data),
+      res => commit(types.COURSE_MY_PARTIAL, res.data),
       res => commit(types.COURSE_FAILURE)
     )
   },
@@ -83,11 +83,13 @@ const mutations = {
   [types.COURSE_DETAIL] (state, course) {
     Vue.set(state.detail, course._id, course)
   },
-  [types.COURSE_MY] (state, list) {
+  [types.COURSE_MINE] (state, list) {
+    //我的全部课程
     state.mine = list
   },
-  [types.COURSE_MY_ALL] (state, list) {
-    state.mineAll = list
+  [types.COURSE_MY_PARTIAL] (state, list) {
+    //我的部分课程
+    state.myPartial = list
   },
   [types.COURSE_FAILURE] (state) {
     //先不做操作

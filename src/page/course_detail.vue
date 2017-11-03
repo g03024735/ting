@@ -5,7 +5,7 @@
         <use xlink:href="#icon-back"></use>
       </svg>
       <div class="course-name">
-        {{ course.name }}
+        {{ course.title }}
       </div>
       <div class="course-title">
         {{ course.author }}

@@ -35,11 +35,12 @@ export default {
   width:100%;
   height:100%;
   z-index:10;
-  background-color: white;
+  background-color: #efefef;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 10000;
   .note {
     font-size: .4rem;
   }

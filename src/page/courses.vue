@@ -20,7 +20,7 @@
               <div class="card" :style="{ backgroundImage: 'url('+ course.cover +')'}">
                 <div class="card-info">
                   <h2 class="card-title">{{ course.author }}</h2>
-                  <p class="card-desc">{{ course.name }}</p>
+                  <p class="card-desc">{{ course.title }}</p>
                 </div>
               </div>
             </router-link>

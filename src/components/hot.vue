@@ -11,7 +11,7 @@
             <img :src="course.cover" alt="course.title">
           </div>
           <div class="info">
-            <span>{{ course.name }}</span>
+            <span>{{ course.title }}</span>
           </div>
         </router-link>
       </div>

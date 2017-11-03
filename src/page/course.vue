@@ -12,7 +12,7 @@
           <div class="head-content-icon" :style="{ backgroundImage: 'url('+ course.cover +')' }"></div>
           <div class="head-content-content">
             <router-link :to="'/course/'+ course._id +'/detail'">
-              <h2>{{course.name}}</h2>
+              <h2>{{course.title}}</h2>
               <h3>{{course.author}}</h3>
             </router-link>
           </div>

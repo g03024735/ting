@@ -9,8 +9,8 @@ export const NOTICE_DETAIL_FAILURE = "NOTICE_DETAIL_FAILURE"
 
 export const COURSE_HOT = "COUTSE_HOT"
 export const COURSE_ALL = "COURSE_ALL"
-export const COURSE_MY = "COURSE_MY"
-export const COURSE_MY_ALL = "COURSE_MY_ALL"
+export const COURSE_MINE = "COURSE_MINE"
+export const COURSE_MY_PARTIAL = "COURSE_MY_PARTIAL"
 export const COURSE_FAILURE = "COURSE_FAILURE"
 export const COURSE_DETAIL = "COURSE_DETAIL"
 

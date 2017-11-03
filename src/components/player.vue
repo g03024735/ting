@@ -12,7 +12,7 @@
           <div class="voice-cover" :style="{ backgroundImage: 'url('+ currentVoice.course.cover +')' }">
           </div>
           <div class="voice-info">
-            <span class="voice-info-name">第{{ currentVoice.voice.stage }}期:{{ currentVoice.voice.title }}</span>
+            <span class="voice-info-name">{{ currentVoice.voice.title }}</span>
             <span class="voice-info-author">{{ currentVoice.course.author }}</span>
           </div>
           <div class="voice-control-group">
@@ -42,7 +42,7 @@
             <div class="img-box" :style="{ backgroundImage: 'url('+ currentVoice.course.cover +')' }">
             </div>
             <div class="voice-title">
-              第{{ currentVoice.voice.stage }}期 {{ currentVoice.voice.title }}
+              {{ currentVoice.voice.title }}
             </div>
           </div>
           <div class="progress-wrapper">
@@ -80,7 +80,7 @@
         </div>
       </div>
     </div>
-    <audio ref="audio" preload="auto" style="display:none;" :src="currentVoice.voice.fileKey"></audio>
+    <audio ref="audio" preload="auto" style="display:none;" :src="currentVoice.voice.voice"></audio>
   </div>
 </template>
 
@@ -136,7 +136,7 @@ export default {
       }
     },
     ...mapState('course', {
-      courses: state => state.mineAll
+      courses: state => state.mine
     }),
     ...mapState({
       voiceList: state => state.player.voiceList,
@@ -165,7 +165,7 @@ export default {
     mute() {
     },
     downloadAttach() {
-      window.open(this.currentVoice.voice.attachKey, 'download')
+      window.open(this.currentVoice.voice.manuscripts, 'download')
     },
     ...mapMutations({
       showCtl: types.PLAYER_SHOW,
@@ -175,13 +175,11 @@ export default {
       next: types.PLAYER_VOICE_NEXT //下一首
     }),
     _handleLoaded() {
-      console.log(`[loaded] duration:${this.audio.duration}`)
       this.loaded = true
     },
     _handleMetaLoaded() {
     },
     _handleCanPlay() {
-      console.log(`[canplay] buffered: ${ this.audio.buffered }`, this.audio.buffered)
       this.audio.play()
     },
     _handlePlayingUI() {

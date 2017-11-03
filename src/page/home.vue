@@ -12,6 +12,8 @@
           <div class="swiper-scrollbar" slot="scrollbar"></div>
         </swiper>
         <v-hot :courses="hots"></v-hot>
+        <v-daily></v-daily>
+        <v-mine></v-mine>
         <v-footer></v-footer>
     </template>
     <v-cover v-else :msg="errorMsg"></v-cover>
@@ -24,6 +26,8 @@ import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import header from '@/components/header'
 import cover from '@/components/cover'
 import hot from '@/components/hot'
+import daily from '@/components/daily'
+import mine from '@/components/mycourse'
 import footer from '@/components/footer'
 
 require('swiper/dist/css/swiper.css')
@@ -52,6 +56,8 @@ export default {
     'v-header': header,
     'v-cover': cover,
     'v-hot': hot,
+    'v-daily': daily,
+    'v-mine': mine,
     'v-footer': footer,
     swiper,
     swiperSlide
