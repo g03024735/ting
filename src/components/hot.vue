@@ -31,7 +31,9 @@ export default {
   props: {
     courses: {
       type: Array,
-      default: []
+      default: function () {
+        return []
+      }
     }
   }
 }

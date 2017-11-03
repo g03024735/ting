@@ -45,19 +45,19 @@ export default {
   computed: {
     courses() {
       if(this.category === 'all')
-        return this.allCourses
+        return this.all
       else if(this.category === 'mine')
-        return this.myAllCourse
+        return this.mine
     },
     ...mapState('course', {
-      allCourses: state => state.all,
-      myAllCourse: state => state.mineAll
+      all: state => state.all,
+      mine: state => state.mine
     }),
-    courseCount() {
-      return this.allCourses.length
+    allcourseCount() {
+      return this.all.length
     },
-    myAllCourseCount() {
-      return this.myAllCourse.length
+    myCourseCount() {
+      return this.mine.length
     },
     title () {
       let _category = {
@@ -67,13 +67,13 @@ export default {
       return _category[this.category]
     },
     loading () {
-      return (this.category === 'all' && this.courseCount === 0) || (this.category === 'mine' && this.myAllCourseCount === 0)
+      return (this.category === 'all' && this.allcourseCount === 0) || (this.category === 'mine' && this.myCourseCount === 0)
     }
   },
   methods: {
     ...mapActions({
       getAllCourse: "course/all",
-      getMyAllCourse: "course/myAll",
+      getMyCourse: "course/mine",
     }),
     sortedCourses() {
       let courses = {}
@@ -89,12 +89,12 @@ export default {
     }
   },
   created () {
-    if((this.category === 'all' && this.allCourses.length > 0) || (this.category === 'mine' && this.myAllCourse.length > 0))
+    if((this.category === 'all' && this.allcourseCount > 0) || (this.category === 'mine' && this.myCourseCount > 0))
       return
     if(this.category === 'all')
       this.getAllCourse()
     else if(this.category === 'mine')
-      this.getMyAllCourse()
+      this.getMyCourse()
   },
   components: {
     'v-cover': cover

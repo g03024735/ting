@@ -3,11 +3,11 @@ import * as types from '../mutation-types'
 import Vue from 'vue'
 
 const state = {
-  hot:[],
-  all: [],
-  myPartial: [],
-  mine: [],
-  detail: {}
+  hot:[], //热门
+  all: [], //所有
+  myPartial: [], //我的部分
+  mine: [], //我的全部
+  detail: {} //课程详情
 }
 
 const getters = {
@@ -54,11 +54,7 @@ const actions = {
   myPartial ({ commit, state }) {
     course.list(
       {
-        'type': 'myPartial',
-        'sort': 'initial{String}',
-        'order': '1{Number}',
-        'putIn': 'true{Boolean}',
-        'select': '_id,author,cover,initial,title,subtitle'
+        'type': 'myPartial'
       },
       res => commit(types.COURSE_MY_PARTIAL, res.data),
       res => commit(types.COURSE_FAILURE)
@@ -89,6 +85,14 @@ const mutations = {
   },
   [types.COURSE_MY_PARTIAL] (state, list) {
     //我的部分课程
+    let _list = []
+    for (let i = 0, course; course = state.mine[i++];) {
+      for (let j = 0, voice; voice = list[j++];) {
+        if(course._id == voice.course) {
+          voice.course = course
+        }
+      }
+    }
     state.myPartial = list
   },
   [types.COURSE_FAILURE] (state) {

@@ -94,8 +94,6 @@ export default {
     return {
       isMuted: false,
       loaded: false,
-      playing: true,
-      paused: false,
       currentTime: 0,
       autoNext: true,
       duration: 0,
@@ -114,11 +112,10 @@ export default {
       }
     },
     show() {
+      console.log(this.playing, this.paused, this.control)
       return (this.playing || this.paused) && this.control
     },
-    control() {
-      return this.voiceList.length > 0
-    },
+    ...mapGetters(["control", "playing", "paused", "voiceId"]),
     currentVoice() {
       for(let i =0, course; course = this.courses[i++];) {
         if (this.voiceList.length === 0)
@@ -151,16 +148,14 @@ export default {
     play() {
       if(this.playing)
         return
-      this.paused = false
+      this.$store.commit(types.PLAY)
       this.audio.play()
-      this.playing = true
     },
     pause() {
       if(this.paused)
         return
-      this.playing = false
+      this.$store.commit(types.PAUSE)
       this.audio.pause()
-      this.paused = true
     },
     mute() {
     },
@@ -180,7 +175,8 @@ export default {
     _handleMetaLoaded() {
     },
     _handleCanPlay() {
-      this.audio.play()
+      if(this.playing)
+        this.audio.play()
     },
     _handlePlayingUI() {
       this.currentTime = parseInt(this.audio.currentTime)

@@ -13,7 +13,7 @@
         </swiper>
         <v-hot :courses="hots"></v-hot>
         <v-daily></v-daily>
-        <v-mine></v-mine>
+        <v-mine :courses="myPartial"></v-mine>
         <v-footer></v-footer>
     </template>
     <v-cover v-else :msg="errorMsg"></v-cover>
@@ -67,7 +67,8 @@ export default {
       notices: state => state.notices
     }),
     ...mapState('course', {
-      hots: state => state.hot
+      hots: state => state.hot,
+      myPartial: state => state.myPartial
     }),
     ...mapGetters(["isLogin", "errorMsg"]),
     ...mapGetters({
