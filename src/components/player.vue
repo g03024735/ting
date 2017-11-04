@@ -58,7 +58,7 @@
               <span class="duration ticker-normal">{{ duration | HHMMSS }}</span>
           </div>
           <div class="ctl-btn-group">
-            <svg class="icon download-attach-btn" @touchstart.stop.prevent="downloadAttach">
+            <svg class="icon download-attach-btn" @touchstart.stop.prevent="downloadAttach(voiceId)">
               <use xlink:href="#icon-calendar"></use>
             </svg>
             <svg class="icon back-forward" @touchstart.stop.prevent="prepose">
@@ -146,9 +146,7 @@ export default {
     },
     mute() {
     },
-    downloadAttach() {
-      window.open(this.currentVoice.voice.manuscripts, 'download')
-    },
+    ...mapActions('voice', ["downloadAttach"]),
     ...mapMutations({
       showCtl: types.PLAYER_SHOW,
       closeCtl: types.PLAYER_CLOSE,
@@ -232,14 +230,6 @@ export default {
     this.audio.removeEventListener('pause', this._handlePlayPause)
     this.audio.removeEventListener('play', this._handlePlayPause)
     this.audio.removeEventListener('ended', this._handlePlayEnd)
-  },
-  filters: {
-    HHMMSS(value) {
-      if(!value)
-        return '00:00'
-      let hhmmss = new Date(value * 1000).toISOString().substr(11, 8)
-      return (hhmmss.indexOf('00:') === 0) ? hhmmss.substr(3) : hhmmss
-    }
   }
 }
 </script>
@@ -260,7 +250,7 @@ export default {
       height: 1.5rem;
       display: flex;
       flex-direction: column;
-      background-color: rgba(#f7f7f7, 0.9);
+      background-color: rgba(#f7f7f7, 0.95);
       .progress{
         display: flex;
         flex-direction: row;
@@ -335,7 +325,7 @@ export default {
       }
     }
     .player-complete {
-      background-color: #f7f7f7;
+      background-color: rgba(#f7f7f7, 0.95);
       box-sizing: border-box;
       .voice-ctl {
         display: flex;

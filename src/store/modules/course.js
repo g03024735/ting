@@ -85,14 +85,6 @@ const mutations = {
   },
   [types.COURSE_MY_PARTIAL] (state, list) {
     //我的部分课程
-    let _list = []
-    for (let i = 0, course; course = state.mine[i++];) {
-      for (let j = 0, voice; voice = list[j++];) {
-        if(course._id == voice.course) {
-          voice.course = course
-        }
-      }
-    }
     state.myPartial = list
   },
   [types.COURSE_FAILURE] (state) {

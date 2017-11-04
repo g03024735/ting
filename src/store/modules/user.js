@@ -27,7 +27,10 @@ const actions = {
           dispatch('course/mine') //获取 我订购的全部课程
         ]).then(()=>{
           //获取 我订购部分课程的最近一条音频
-          dispatch('course/myPartial').then(()=>{
+          Promise.all([
+            dispatch('voice/daily'),
+            dispatch('course/myPartial')
+          ]).then(()=>{
             commit(types.LOGIN, res.data)
           })
         })

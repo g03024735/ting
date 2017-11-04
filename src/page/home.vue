@@ -12,8 +12,8 @@
           <div class="swiper-scrollbar" slot="scrollbar"></div>
         </swiper>
         <v-hot :courses="hots"></v-hot>
-        <v-daily></v-daily>
-        <v-mine :courses="myPartial"></v-mine>
+        <v-daily :voices="dailyVoices"></v-daily>
+        <v-mine :courses="myParticalCourse"></v-mine>
         <v-footer></v-footer>
     </template>
     <v-cover v-else :msg="errorMsg"></v-cover>
@@ -68,12 +68,44 @@ export default {
     }),
     ...mapState('course', {
       hots: state => state.hot,
+      mine: state => state.mine,
       myPartial: state => state.myPartial
+    }),
+    ...mapState('voice', {
+      daily: state => state.daily
     }),
     ...mapGetters(["isLogin", "errorMsg"]),
     ...mapGetters({
       noticeCount: 'notice/count',
-    })
+    }),
+    myParticalCourse() {
+      let _list = []
+      for (let i = 0, course; course = this.mine[i++];) {
+        for (let j = 0, voice; voice = this.myPartial[j++];) {
+          if(course._id == voice.course) {
+            _list.push({
+              voice,
+              course
+            })
+          }
+        }
+      }
+      return _list
+    },
+    dailyVoices() {
+      let _list = []
+      for (let i = 0, course; course = this.mine[i++];) {
+        for (let j = 0, voice; voice = this.daily[j++];) {
+          if(course._id == voice.course) {
+            _list.push({
+              voice,
+              course
+            })
+          }
+        }
+      }
+      return _list
+    }
   },
   methods: {
     ...mapActions(["login"])

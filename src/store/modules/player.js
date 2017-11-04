@@ -24,13 +24,6 @@ const getters = {
 }
 
 const actions = {
-  addPlay ({ commit }, voiceId) {
-    voice.detail(
-      voiceId,
-      res => commit(types.ADD_PLAY, res.data),
-      err => commit(types.ADD_PLAY_ERROR, err),
-    )
-  }
 }
 
 const mutations = {

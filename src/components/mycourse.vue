@@ -5,10 +5,10 @@
       <router-link class="more" to="/courses/mine">{{ more }}</router-link>
     </div>
     <div class="mycourses-wrap">
-      <div v-for="(voice, index) in courses" class="course-item-wrap">
-        <div class="card" :style="{ backgroundImage: 'url('+ voice.course.cover +')' }"></div>
+      <div v-for="({voice, course}, index) in courses" class="course-item-wrap">
+        <div class="card" :style="{ backgroundImage: 'url('+ course.cover +')' }"></div>
         <div class="course-info">
-          <h2>{{ voice.course.title }}</h2>
+          <h2>{{ course.title }}</h2>
           <h3>{{ voice.title }}</h3>
         </div>
         <div class="play-ctl-wrap">
@@ -37,15 +37,12 @@ import { mapActions, mapGetters, mapMutations} from 'vuex'
 import * as types from '../store/mutation-types'
 
 export default {
-  name: 'daily',
+  name: 'myCourse',
   data: function() {
     return {
       head: '我的课程',
       more: '更多'
     }
-  },
-  computed: {
-    ...mapGetters(["playing", "paused", "voiceId"]),
   },
   props: {
     courses: {
@@ -54,6 +51,9 @@ export default {
         return []
       }
     }
+  },
+  computed: {
+    ...mapGetters(["playing", "paused", "voiceId"]),
   },
   methods: {
     play(voiceId) {
@@ -66,7 +66,7 @@ export default {
     ...mapMutations({
       pause: types.PAUSE,
     }),
-    ...mapActions(["addPlay"])
+    ...mapActions('voice', ["addPlay"])
   }
 }
 </script>
@@ -106,7 +106,6 @@ export default {
       .card {
         width: 1.2rem;
         height: 1.2rem;
-        background-color: pink;
         margin: 0 .1rem;
         background: {
           repeat: no-repeat;
@@ -138,7 +137,7 @@ export default {
           vertical-align: baseline;
           fill: rgb(83, 83, 83);
           overflow: hidden;
-         }
+        }
       }
     }
   }

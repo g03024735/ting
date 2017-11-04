@@ -7,6 +7,7 @@ import notice from './modules/notice'
 import course from './modules/course'
 import comment from './modules/comment'
 import player from './modules/player'
+import voice from './modules/voice'
 
 Vue.use(Vuex)
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     notice,
     course,
     comment,
+    voice,
     player
   },
   strict: debug
