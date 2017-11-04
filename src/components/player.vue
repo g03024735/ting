@@ -173,8 +173,10 @@ export default {
     _handleMetaLoaded() {
     },
     _handleCanPlay() {
-      if(this.playing)
+      if(this.playing) {
         this.audio.play()
+        this.audio.play()
+      }
     },
     _handlePlayingUI() {
       this.currentTime = parseInt(this.audio.currentTime)
@@ -233,6 +235,24 @@ export default {
     this.uuid = generateUUID()
     this.audio = this.$refs.audio
     this.$store.commit(types.INIT_AUDIO, this.playerId)
+    let self = this
+    function mediaPlaybackRequiresUserGesture() {
+        var video = document.createElement('video');
+        video.play();
+        return video.paused;
+    }
+    function removeBehaviorsRestrictions() {
+      self.audio.load();
+      window.removeEventListener('keydown', removeBehaviorsRestrictions);
+      window.removeEventListener('mousedown', removeBehaviorsRestrictions);
+      window.removeEventListener('touchstart', removeBehaviorsRestrictions);
+    }
+    if (mediaPlaybackRequiresUserGesture()) {
+      //兼容不播放问题
+      window.addEventListener('keydown', removeBehaviorsRestrictions);
+      window.addEventListener('mousedown', removeBehaviorsRestrictions);
+      window.addEventListener('touchstart', removeBehaviorsRestrictions);
+    }
     this.init()
   },
   beforeDestroy: function () {
