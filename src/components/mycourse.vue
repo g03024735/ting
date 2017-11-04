@@ -21,7 +21,7 @@
             </svg>
           </div>
           <div v-else>
-            <svg v-if="!voice.voice" class="icon">
+            <svg v-if="!voice.voice" class="icon" @click="downloadAttach(voice._id)">
               <use xlink:href="#icon-calendar"></use>
             </svg>
           </div>
@@ -66,7 +66,7 @@ export default {
     ...mapMutations({
       pause: types.PAUSE,
     }),
-    ...mapActions('voice', ["addPlay"])
+    ...mapActions('voice', ["addPlay", "downloadAttach"])
   }
 }
 </script>
