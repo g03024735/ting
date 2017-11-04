@@ -97,7 +97,6 @@ export default {
       currentTime: 0,
       autoNext: true,
       duration: 0,
-      audio: undefined,
       barCtl: undefined,
       dragCtl: undefined
     }
@@ -112,7 +111,6 @@ export default {
       }
     },
     show() {
-      console.log(this.playing, this.paused, this.control)
       return (this.playing || this.paused) && this.control
     },
     ...mapGetters(["control", "playing", "paused", "voiceId"]),
@@ -137,25 +135,14 @@ export default {
     }),
     ...mapState({
       voiceList: state => state.player.voiceList,
-      simplify: state => state.player.simplify
+      simplify: state => state.player.simplify,
+      audio: state => state.player.audio
     }),
   },
   methods: {
     empty: () => {},
     console(flag) {
       console.log('flat', flag)
-    },
-    play() {
-      if(this.playing)
-        return
-      this.$store.commit(types.PLAY)
-      this.audio.play()
-    },
-    pause() {
-      if(this.paused)
-        return
-      this.$store.commit(types.PAUSE)
-      this.audio.pause()
     },
     mute() {
     },
@@ -167,7 +154,9 @@ export default {
       closeCtl: types.PLAYER_CLOSE,
       switchCtlShow: types.PLAYER_SIMPLIFY_CHANGE,
       prepose: types.PLAYER_VOICE_PRE, //上一首
-      next: types.PLAYER_VOICE_NEXT //下一首
+      next: types.PLAYER_VOICE_NEXT, //下一首
+      play: types.PLAY, //播放
+      pause: types.PAUSE //暂停
     }),
     _handleLoaded() {
       this.loaded = true
@@ -232,7 +221,7 @@ export default {
     }
   },
   mounted: function () {
-    this.audio = this.$refs.audio
+    this.$store.commit(types.INIT_AUDIO, this.$refs.audio)
     this.init()
   },
   beforeDestroy: function () {

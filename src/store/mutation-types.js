@@ -21,6 +21,7 @@ export const COMMENT_PUBLISH_FAILURE = "COMMENT_PUBLISH_FAILURE"
 
 export const PLAY = "PLAY"
 export const PAUSE = "PAUSE"
+export const INIT_AUDIO = "INIT_AUDIO"
 export const ADD_PLAY = "ADD_PLAY"
 export const ADD_PLAY_ERROR = "ADD_PLAY_ERROR"
 export const PLAYER_SHOW = "PLAYER_SHOW"

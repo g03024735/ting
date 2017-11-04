@@ -12,15 +12,19 @@
           <h3>{{ voice.title }}</h3>
         </div>
         <div class="play-ctl-wrap">
-          <svg v-if="!!voice.voice" class="icon" aria-hidden="true" @click="addPlay(voice._id)">
-            <use xlink:href="#icon-playfill"></use>
-          </svg>
-          <svg v-if="!true" class="icon" aria-hidden="true" @click="pause(voice._id)">
-            <use xlink:href="#icon-stop"></use>
-          </svg>
-          <svg v-if="!voice.voice" class="icon" aria-hidden="true">
-            <use xlink:href="#icon-calendar"></use>
-          </svg>
+          <div v-if="!!voice.voice">
+            <svg v-if="playing && voiceId == voice._id" class="icon" @click="pause(voice._id)">
+              <use xlink:href="#icon-stop"></use>
+            </svg>
+            <svg v-else class="icon" @click="play(voice._id)">
+              <use xlink:href="#icon-playfill"></use>
+            </svg>
+          </div>
+          <div v-else>
+            <svg v-if="!voice.voice" class="icon">
+              <use xlink:href="#icon-calendar"></use>
+            </svg>
+          </div>
         </div>
       </div>
       </div>
@@ -29,7 +33,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters, mapMutations} from 'vuex'
+import * as types from '../store/mutation-types'
 
 export default {
   name: 'daily',
@@ -38,6 +43,9 @@ export default {
       head: '我的课程',
       more: '更多'
     }
+  },
+  computed: {
+    ...mapGetters(["playing", "paused", "voiceId"]),
   },
   props: {
     courses: {
@@ -49,11 +57,15 @@ export default {
   },
   methods: {
     play(voiceId) {
-      console.log('play : ', voiceId)
+      if(voiceId == this.voiceId){
+        this.$store.commit(types.PLAY)
+      }else {
+        this.addPlay(voiceId)
+      }
     },
-    pause(voiceId) {
-      console.log('pause : ', voiceId)
-    },
+    ...mapMutations({
+      pause: types.PAUSE,
+    }),
     ...mapActions(["addPlay"])
   }
 }
@@ -116,6 +128,7 @@ export default {
         h3 {
           font-size: .27rem;
           line-height: 1.7;
+          color: rgb(149, 149, 149)
         }
       }
       .play-ctl-wrap {
@@ -123,7 +136,7 @@ export default {
         .icon {
           width: .7rem; height: .7rem;
           vertical-align: baseline;
-          fill: currentColor;
+          fill: rgb(83, 83, 83);
           overflow: hidden;
          }
       }
