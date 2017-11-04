@@ -5,7 +5,7 @@ const state = {
   voiceList:[],
   simplify: true, //精简模式显示
   control: false, //是否显示播放器
-  audio: undefined //audio实例
+  audio: ""
 }
 
 const getters = {
@@ -27,8 +27,8 @@ const actions = {
 }
 
 const mutations = {
-  [types.INIT_AUDIO] (state, audioInstance) {
-    state.audio = audioInstance
+  [types.INIT_AUDIO] (state, playerId) {
+    state.audio = playerId
   },
   [types.ADD_PLAY] (state, voiceInfo) {
     voiceInfo.playing = true
@@ -65,11 +65,11 @@ const mutations = {
   },
   [types.PLAY] (state) {
     state.voiceList[0].playing = true
-    state.audio.play()
+    document.getElementById(state.audio).play()
   },
   [types.PAUSE] (state, voiceId) {
     state.voiceList[0].playing = false
-    state.audio.pause()
+    document.getElementById(state.audio).pause()
   }
 }
 

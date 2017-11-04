@@ -80,13 +80,20 @@
         </div>
       </div>
     </div>
-    <audio ref="audio" preload="auto" style="display:none;" :src="currentVoice.voice.voice"></audio>
+    <audio ref="audio" v-bind:id="playerId" preload="auto" style="display:none;" :src="currentVoice.voice.voice"></audio>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import * as types from '../store/mutation-types'
+
+const generateUUID = () => {
+  return 'xxxxxxxx-xxxx-4xxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8)
+    return v.toString(16)
+  })
+}
 
 export default {
   name:'play',
@@ -97,8 +104,10 @@ export default {
       currentTime: 0,
       autoNext: true,
       duration: 0,
+      uuid: 0,
       barCtl: undefined,
-      dragCtl: undefined
+      dragCtl: undefined,
+      audio: undefined,
     }
   },
   computed: {
@@ -109,6 +118,9 @@ export default {
       set(percent) {
         this.audio.currentTime = parseInt(this.audio.duration * percent)
       }
+    },
+    playerId () {
+      return 'player-' + this.uuid
     },
     show() {
       return (this.playing || this.paused) && this.control
@@ -136,7 +148,6 @@ export default {
     ...mapState({
       voiceList: state => state.player.voiceList,
       simplify: state => state.player.simplify,
-      audio: state => state.player.audio
     }),
   },
   methods: {
@@ -219,7 +230,9 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.commit(types.INIT_AUDIO, this.$refs.audio)
+    this.uuid = generateUUID()
+    this.audio = this.$refs.audio
+    this.$store.commit(types.INIT_AUDIO, this.playerId)
     this.init()
   },
   beforeDestroy: function () {
