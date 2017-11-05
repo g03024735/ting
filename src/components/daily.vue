@@ -9,7 +9,7 @@
         </div>
         <div class="voice-title">
           <h2>
-            {{ voice.title }}
+            <span v-if="!!voice.voice" >{{ voice.duration | HHMMSS }}</span>{{ voice.title }}
           </h2>
         </div>
         <div class="play-ctl-wrap">
@@ -104,8 +104,8 @@ export default {
       margin: .1rem 0;
       padding: 0 .05rem;
       .card {
-        width: .8rem;
-        height: .8rem;
+        width: .7rem;
+        height: .7rem;
         flex-shrink: 0;
         background: {
           repeat: no-repeat;
@@ -120,6 +120,13 @@ export default {
         h2 {
           font-size: .31rem;
           white-space: nowrap;
+          span {
+            font-size: .28rem;
+            background-color: rgba(126, 126, 126, 0.27);
+            padding: 0.03rem;
+            border-radius: .1rem;
+            margin-right: .1rem;
+          }
         }
       }
       .play-ctl-wrap {

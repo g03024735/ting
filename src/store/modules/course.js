@@ -61,6 +61,8 @@ const actions = {
     )
   },
   detail ({ commit, state}, courseId) {
+    if(state.detail[courseId])
+      return
     course.detail(
       courseId,
       res => commit(types.COURSE_DETAIL, res.data),
