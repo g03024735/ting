@@ -53,12 +53,12 @@ const actions = {
       err => commit(types.VOICE_ERROR, err)
     )
   },
-  downloadAttach({ state }, voiceId) {
+  downloadAttach({ state }, voiceId, router) {
     voice.detail(
       voiceId,
       res => {
         if(res.data.manuscripts)
-          window.open(res.data.manuscripts, 'download')
+          window.location = res.data.manuscripts
       },
       err => {
       }

@@ -22,7 +22,7 @@
         <div v-for="(voice, index) in voices" class="voice-item-wrap">
           <div class="voice-info">
             <h2> {{ voice.title }}</h2>
-            <h3>{{ voice.duration | HHMMSS }}</h3>
+            <h3 v-if="voice.voice">{{ voice.duration | HHMMSS }}</h3>
           </div>
           <div class="voice-ctl">
             <div v-if="!!voice.voice">

@@ -111,6 +111,8 @@ export default {
     ...mapActions(["login"])
   },
   created () {
+    if(this.isLogin)
+      return
     this.login({
       userId: this.userId
     })

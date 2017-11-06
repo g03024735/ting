@@ -175,7 +175,6 @@ export default {
     _handleCanPlay() {
       if(this.playing) {
         this.audio.play()
-        this.audio.play()
       }
     },
     _handlePlayingUI() {
@@ -221,6 +220,13 @@ export default {
         this.next()
       }
     },
+    _handleProgress(event) {
+      //
+      // let buffered = this.audio.buffered
+      // for(let i = 0; i < buffered.length; i++) {
+      //   console.log(buffered.start(i), buffered.end(i))
+      // }
+    },
     init() {
       this.audio.addEventListener('loadeddata', this._handleLoaded)
       this.audio.addEventListener('loadedmetadata', this._handleMetaLoaded)
@@ -229,6 +235,7 @@ export default {
       this.audio.addEventListener('pause', this._handlePlayPause)
       this.audio.addEventListener('play', this._handlePlayPause)
       this.audio.addEventListener('ended', this._handlePlayEnd)
+      this.audio.addEventListener('progress', this._handleProgress)
     }
   },
   mounted: function () {
@@ -263,6 +270,7 @@ export default {
     this.audio.removeEventListener('pause', this._handlePlayPause)
     this.audio.removeEventListener('play', this._handlePlayPause)
     this.audio.removeEventListener('ended', this._handlePlayEnd)
+    this.audio.removeEventListener('progress', this._handleProgress)
   }
 }
 </script>
@@ -398,6 +406,7 @@ export default {
             white-space: nowrap;
             line-height: .5rem;
             margin-bottom: .3rem;
+            font-weight: 600;
           }
         }
         .ctl-btn-group {

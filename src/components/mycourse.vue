@@ -5,7 +5,7 @@
       <router-link class="more" to="/courses/mine">{{ more }}</router-link>
     </div>
     <div class="mycourses-wrap">
-      <div v-for="({voice, course}, index) in courses" class="course-item-wrap">
+      <div v-for="({voice, course}, index) in courses" class="course-item-wrap" @click="jumpCourseVoices(course._id)">
         <div class="card" :style="{ backgroundImage: 'url('+ course.cover +')' }"></div>
         <div class="course-info">
           <h2>{{ course.title }}</h2>
@@ -13,15 +13,15 @@
         </div>
         <div class="play-ctl-wrap">
           <div v-if="!!voice.voice">
-            <svg v-if="playing && voiceId == voice._id" class="icon" @click="pause(voice._id)">
+            <svg v-if="playing && voiceId == voice._id" class="icon" @click.stop="pause(voice._id)">
               <use xlink:href="#icon-stop"></use>
             </svg>
-            <svg v-else class="icon" @click="play(voice._id)">
+            <svg v-else class="icon" @click.stop="play(voice._id)">
               <use xlink:href="#icon-playfill"></use>
             </svg>
           </div>
           <div v-else>
-            <svg v-if="!voice.voice" class="icon" @click="downloadAttach(voice._id)">
+            <svg v-if="!voice.voice" class="icon" @click.stop="downloadAttach(voice._id)">
               <use xlink:href="#icon-calendar"></use>
             </svg>
           </div>
@@ -56,6 +56,15 @@ export default {
     ...mapGetters(["playing", "paused", "voiceId"]),
   },
   methods: {
+    jumpCourseVoices(courseId) {
+      console.log(courseId)
+      this.$router.push({
+        name: 'course',
+        params: {
+          courseId
+        }
+      })
+    },
     play(voiceId) {
       if(voiceId == this.voiceId){
         this.$store.commit(types.PLAY)
