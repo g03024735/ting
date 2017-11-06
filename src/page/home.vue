@@ -1,7 +1,10 @@
 <template>
   <div>
     <template v-if="isLogin">
-        <v-header :title="title" ></v-header>
+        <div style="width:100%; height: 1rem;" @click="showModal(true)">
+
+        </div>
+        <v-header :title="title"></v-header>
         <swiper :options="swiperOption" :not-next-tick="notNextTick" ref="mySwiper">
           <swiper-slide v-for="(item, index) in notices" :key="item._id" class="swiper-box">
             <router-link :to="'/notice/' + item._id">
@@ -16,12 +19,13 @@
         <v-mine :courses="myParticalCourse"></v-mine>
         <v-footer></v-footer>
     </template>
-    <v-cover v-else :msg="errorMsg"></v-cover>
+    <v-cover v-else :msg="loginMsg"></v-cover>
   </div>
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions} from 'vuex'
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
+import * as types from '../store/mutation-types'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import header from '@/components/header'
 import cover from '@/components/cover'
@@ -74,7 +78,7 @@ export default {
     ...mapState('voice', {
       daily: state => state.daily
     }),
-    ...mapGetters(["isLogin", "errorMsg"]),
+    ...mapGetters(["isLogin", "loginMsg"]),
     ...mapGetters({
       noticeCount: 'notice/count',
     }),
@@ -108,7 +112,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["login"])
+    ...mapActions(["login"]),
+    ...mapMutations({
+      showModal: types.ERROR_MSG_SHOW
+    })
   },
   created () {
     if(this.isLogin)

@@ -6,13 +6,17 @@ const state = {
   userId: '',
   jwt:'',
   isLogged: false,
-  msg: ''
+  msg: '',
+  errorMsg: 'hahahah',
+  showErrMsg: false
 }
 
 const getters = {
   userId: state => state.userId,
   isLogin: state => state.isLogged,
-  errorMsg: state => state.msg
+  loginMsg: state => state.msg,
+  errorMsg: state => state.errorMsg,
+  showErrMsg: state => state.showErrMsg
 }
 
 const actions = {
@@ -50,6 +54,12 @@ const mutations = {
   },
   [types.LOGIN_FAILURE] (state, {code, error}) {
     state.msg = error
+  },
+  [types.ERROR_MSG] (state, errorMsg) {
+    state.errorMsg = errorMsg
+  },
+  [types.ERROR_MSG_SHOW] (state, isOrNot) {
+    state.showErrMsg = isOrNot
   }
 }
 

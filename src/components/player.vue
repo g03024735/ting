@@ -236,7 +236,6 @@ export default {
     },
     _handlePlayEnd() {
       if(this.autoNext){
-        this.offsetVoiceId = this.voiceId + ''
         this.next()
       }
     },

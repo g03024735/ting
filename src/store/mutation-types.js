@@ -1,6 +1,8 @@
 export const LOGIN = "LOGIN"
 export const INIT_USERID = "INIT_USERID"
 export const LOGIN_FAILURE = "LOGIN_FAILURE"
+export const ERROR_MSG = "ERROR_MSG"
+export const ERROR_MSG_SHOW = "ERROR_MSG_SHOW"
 
 export const NOTICE_LIST = "NOTICE_LIST"
 export const NOTICE_DEFAULT = "NOTICE_DEFAULT"
