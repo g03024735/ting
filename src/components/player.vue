@@ -95,6 +95,17 @@ const generateUUID = () => {
   })
 }
 
+const debounce = function(idle, action){
+  var last
+  return function(){
+    var ctx = this, args = arguments
+    clearTimeout(last)
+    last = setTimeout(function(){
+        action.apply(ctx, args)
+    }, idle)
+  }
+}
+
 export default {
   name:'play',
   data: function() {
@@ -108,6 +119,7 @@ export default {
       barCtl: undefined,
       dragCtl: undefined,
       audio: undefined,
+      offsetVoiceId: ""
     }
   },
   computed: {
@@ -194,6 +206,12 @@ export default {
       this.startx = e.targetTouches[0].clientX
       this.startplayercent = this.playercent
     },
+    setDragMovePosition : debounce(200, function(current) {
+      this.playercent = current
+    }),
+    updateDragUI(current) {
+      this.currentTime = parseInt(current * this.duration)
+    },
     _handleDragMove(e) {
       if (!this.start)
           return
@@ -204,7 +222,8 @@ export default {
           current = 0
       if (current > 1)
           current = 1
-      this.playercent = current
+      this.updateDragUI(current)
+      this.setDragMovePosition(current)
     },
     _handleDragEnd() {
       this.start = false
@@ -217,6 +236,7 @@ export default {
     },
     _handlePlayEnd() {
       if(this.autoNext){
+        this.offsetVoiceId = this.voiceId + ''
         this.next()
       }
     },
