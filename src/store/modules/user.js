@@ -39,7 +39,7 @@ const actions = {
           })
         })
       },
-      err => { console.log(err);commit(types.LOGIN_FAILURE, err.response.data)}
+      err => commit(types.LOGIN_FAILURE, err.response.data)
     )
   }
 }

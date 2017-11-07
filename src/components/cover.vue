@@ -1,13 +1,15 @@
 <template>
   <div class="overlayer">
-    <div class="loading" v-if="loading">
-      <div><span></span></div>
-      <div><span></span></div>
-      <div><span></span></div>
-    </div>
-    <div v-else class="note">
-      {{ msg }}
-    </div>
+    <slot>
+      <div class="loading" v-if="loading">
+        <div><span></span></div>
+        <div><span></span></div>
+        <div><span></span></div>
+      </div>
+      <div v-else class="note">
+        {{ msg }}
+      </div>
+    </slot>
   </div>
 </template>
 
@@ -43,6 +45,11 @@ export default {
   z-index: 10000;
   .note {
     font-size: .4rem;
+    color: #ffbbd2;
+    border: .1rem solid rgb(214, 214, 214);
+    background-color: white;
+    padding: .2rem;
+    box-shadow: 0px 6px 20px #333333;
   }
 }
 .loading{
