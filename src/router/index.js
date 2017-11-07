@@ -6,6 +6,7 @@ import Courses from '@/page/courses'
 import Course from '@/page/course'
 import Comment from '@/page/comment'
 import CourseDetail from '@/page/course_detail'
+import Welcome from '@/page/welcome'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       name: 'home',
       component: Home,
       props: true
-    }
+    },
+    {
+      path: '/',
+      name: 'welcome',
+      component: Welcome
+    },
   ]
 })
