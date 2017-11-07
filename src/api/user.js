@@ -8,13 +8,13 @@ axios.interceptors.request.use(function (config) {
   }
   return config
 }, function (err) {
-  return Promise.reject(error)
+  return Promise.reject(err)
 })
 
 axios.interceptors.response.use(function (response) {
   return response;
 }, function (err) {
-  return Promise.reject(error)
+  return Promise.reject(err)
 })
 
 export default {

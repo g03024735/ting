@@ -14,7 +14,10 @@ const actions = {
     voice.detail(
       voiceId,
       res => commit(types.ADD_PLAY, res.data, {root: true}),
-      err => commit(types.ADD_PLAY_ERROR, err, {root: true}),
+      err => {
+        commit(types.ERROR_MSG,  err.response.data.error, {root: true})
+        commit(types.ERROR_MSG_SHOW, true, {root: true})
+      }
     )
   },
   daily({ commit }) {
@@ -61,6 +64,8 @@ const actions = {
           window.location = res.data.manuscripts
       },
       err => {
+        commit(types.ERROR_MSG,  err.response.data.error, {root: true})
+        commit(types.ERROR_MSG_SHOW, true, {root: true})
       }
     )
   }
@@ -82,7 +87,8 @@ const mutations = {
       voices
     })
   },
-  [types.VOICE_ERROR] (state) {
+  [types.VOICE_ERROR] (state, { response }) {
+    console.log(response.data.error)
   }
 }
 

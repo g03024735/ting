@@ -25,8 +25,8 @@ export default {
       showModal: types.ERROR_MSG_SHOW
     }),
     close() {
-      this.showModal(false)
       this.$router.go(-1)
+      this.showModal(false)
     }
   }
 }

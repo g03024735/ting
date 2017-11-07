@@ -1,9 +1,6 @@
 <template>
   <div>
     <template v-if="isLogin">
-        <div style="width:100%; height: 1rem;" @click="showModal(true)">
-
-        </div>
         <v-header :title="title"></v-header>
         <swiper :options="swiperOption" :not-next-tick="notNextTick" ref="mySwiper">
           <swiper-slide v-for="(item, index) in notices" :key="item._id" class="swiper-box">
@@ -112,10 +109,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["login"]),
-    ...mapMutations({
-      showModal: types.ERROR_MSG_SHOW
-    })
+    ...mapActions(["login"])
   },
   created () {
     if(this.isLogin)

@@ -12,6 +12,6 @@ export default {
   detail(voiceId, cb, errCb) {
     axios.get(voice_detail(voiceId))
     .then(res => cb(res))
-    .catch(err => {console.log(err);errCb(err)})
+    .catch(err => errCb(err))
   }
 }

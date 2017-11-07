@@ -4,7 +4,7 @@
     <div>
       <router-view/>
       <v-player></v-player>
-      <v-modal v-if="isShowModal" :msg="'您未购买此课程!'" :head="'提示'"></v-modal>
+      <v-modal v-if="isShowModal" :msg="errorMsg" :head="'提示'"></v-modal>
     </div>
   </transition>
 </div>
@@ -35,8 +35,19 @@ export default {
     showErrMsg(cur){
       //往urlpush 一个 #
       if(cur){
-        window.location.hash = "modal"
-        this.isShowModal = true
+        //BUG 如果页面还没加载完成的话(可能是这种情况),设置hash是不生效的
+        //HACK 递归循环设置循环的设置
+        let self = this
+        function setHash(hash) {
+          setTimeout(function() {
+            window.location.hash = hash
+            if(window.location.hash == "#modal")
+              self.isShowModal = true
+            else
+              setHash(hash)
+          }, 100)
+        }
+        setHash('modal')
       }else {
         this.isShowModal = false
       }
@@ -52,7 +63,7 @@ export default {
     }
   },
   mounted: function() {
-    window.onhashchange = this._handleModalClose
+    window.addEventListener("hashchange", this._handleModalClose);
   },
   beforeDestroy: function() {
     window.onhashchange = null
