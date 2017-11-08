@@ -147,7 +147,6 @@ export default {
     }
   }
   .voices-list-wrap {
-    height: 4rem;
     width: 100%;
     padding-top: .1rem;
     display: flex;
@@ -155,12 +154,10 @@ export default {
     align-items: center;
     .voice-item-wrap {
       width: 95%;
-      height: 1rem;
       border-bottom: 0.02rem solid #eee;
       display: flex;
       .voice-info {
         flex-grow: 1;
-        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
