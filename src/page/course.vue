@@ -156,6 +156,7 @@ export default {
       width: 95%;
       border-bottom: 0.02rem solid #eee;
       display: flex;
+      padding: .1rem 0;
       .voice-info {
         flex-grow: 1;
         display: flex;
