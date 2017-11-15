@@ -116,6 +116,7 @@ export default {
         width: 1.2rem;
         height: 1.2rem;
         margin: 0 .1rem;
+        flex-shrink: 0;
         background: {
           repeat: no-repeat;
           position: center;
