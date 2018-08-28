@@ -300,7 +300,6 @@ export default {
   }
   .player {
     width: 100%;
-    max-width: 400px;
     z-index: 9998;
     position: fixed;
     overflow: hidden;
