@@ -82,4 +82,8 @@ export default {
   opacity: 0
 }
 
+#app {
+  max-width: 400rem;
+}
+
 </style>
