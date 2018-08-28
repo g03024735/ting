@@ -83,7 +83,7 @@ export default {
 }
 
 #app {
-  max-width:10rem;
+  max-width: 9rem;
 }
 
 </style>
